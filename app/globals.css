@@ -96,6 +96,27 @@
   .font-sans {
     font-family: var(--font-inter);
   }
+
+  /* Animation delay utilities */
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+
+  .delay-700 {
+    animation-delay: 700ms;
+  }
+
+  .delay-1000 {
+    animation-delay: 1000ms;
+  }
 }
 
 html {
@@ -292,12 +313,19 @@ html {
 
 .cursor-dot {
   position: fixed;
-  width: 8px;
-  height: 8px;
-  background-color: rgba(245, 158, 11, 0.8);
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.9) 0%, rgba(245, 158, 11, 0.6) 50%, transparent 100%);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
   mix-blend-mode: difference;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+  transition: all 0.2s ease-out;
+}
+
+.cursor-dot:hover {
+  transform: translate(-50%, -50%) scale(1.5);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
 }
