@@ -10,6 +10,29 @@ const Hero = () => {
     const heroRef = useRef<HTMLDivElement>(null);
     const cursorDotRef = useRef<HTMLDivElement>(null);
     const hoverSize = 250; // Size of the hover effect in pixels
+    // Dynamically adjust background position so the face in the photo is always centred nicely on different devices
+    const [bgPosition, setBgPosition] = useState<string>('center 20%');
+
+    useEffect(() => {
+        const updateBackgroundPosition = () => {
+            const width = window.innerWidth;
+            // Fine-tuned breakpoints for a pleasant framing of the image
+            if (width < 640) {
+                setBgPosition('center 10%'); // mobile – bring face slightly higher
+            } else if (width < 1024) {
+                setBgPosition('center 15%'); // tablet
+            } else if (width < 1440) {
+                setBgPosition('center 20%'); // small desktop (default)
+            } else {
+                setBgPosition('center 25%'); // large displays – a bit lower for balance
+            }
+        };
+
+        // Initialise & listen for resize events
+        updateBackgroundPosition();
+        window.addEventListener('resize', updateBackgroundPosition);
+        return () => window.removeEventListener('resize', updateBackgroundPosition);
+    }, []);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (heroRef.current) {
@@ -62,7 +85,7 @@ const Hero = () => {
                 style={{
                     backgroundImage: `url('/seriously-face.jpeg')`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center 20%',
+                    backgroundPosition: bgPosition,
                     backgroundRepeat: 'no-repeat'
                 }}
             />
@@ -73,7 +96,7 @@ const Hero = () => {
                 style={{
                     backgroundImage: `url('/smile-face.jpeg')`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center 20%', // Harus sama dengan gambar utama
+                    backgroundPosition: bgPosition, // Must match the main image
                     backgroundRepeat: 'no-repeat',
                     clipPath: `circle(${isHovering ? hoverSize / 2 : 0}px at ${mousePosition.x}px ${mousePosition.y}px)`,
                 }}
