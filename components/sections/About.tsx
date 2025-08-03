@@ -9,30 +9,17 @@ const About = () => {
     'Web Development',
     'UI/UX Design',
     'Mobile Apps',
-    'Open Source',
     'Machine Learning',
-    'Photography'
   ];
 
   const experience = [
     {
-      title: 'Senior Full Stack Developer',
-      company: 'Tech Solutions Inc.',
-      period: '2022 - Present',
-      description: 'Leading development of enterprise web applications using React, Node.js, and cloud technologies.'
+      title: 'Junior Full Stack Developer',
+      company: 'Farovon Maju Bersama.',
+      period: ' April 2025 - Juli 2025',
+      description: 'Participated in the development of web application features using Next.js and React.js on the frontend, and Laravel for backend needs. Assisted with API integration and performed debugging and feature testing alongside the senior development team.'
     },
-    {
-      title: 'Frontend Developer',
-      company: 'Digital Agency',
-      period: '2020 - 2022',
-      description: 'Developed responsive websites and web applications for various clients using modern frameworks.'
-    },
-    {
-      title: 'UI/UX Designer',
-      company: 'Creative Studio',
-      period: '2019 - 2020',
-      description: 'Designed user interfaces and experiences for mobile and web applications.'
-    }
+
   ];
 
   return (
@@ -55,20 +42,20 @@ const About = () => {
                   Who Am I?
                 </h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  I'm a passionate full-stack developer with over 4 years of experience building 
-                  modern web applications. I love creating digital experiences that are not only 
+                  I'm a passionate full-stack developer with over 3 years of experience building
+                  modern web applications. I love creating digital experiences that are not only
                   functional but also beautiful and intuitive.
                 </p>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  When I'm not coding, you'll find me exploring new technologies, contributing to 
-                  open-source projects, or capturing moments through photography. I believe in 
+                  When I'm not coding, you'll find me exploring new technologies, contributing to
+                  open-source projects, or capturing moments through photography. I believe in
                   continuous learning and staying up-to-date with the latest industry trends.
                 </p>
 
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4" />
-                    <span>Jakarta, Indonesia</span>
+                    <span>Tangerang, Indonesia</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />

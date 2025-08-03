@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
@@ -26,44 +26,68 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    toast({
-      title: "Message sent successfully!",
-      description: "Thank you for your message. I'll get back to you soon.",
-    });
+      const data = await response.json();
 
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
-    setIsSubmitting(false);
+      if (response.ok) {
+        toast({
+          title: "Pesan terkirim!",
+          description: data.message,
+        });
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        toast({
+          title: "Gagal mengirim pesan.",
+          description: data.message || 'Terjadi kesalahan saat mengirim pesan.',
+          variant: "destructive"
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: "Gagal mengirim pesan.",
+        description: error.message || 'Terjadi kesalahan.',
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
 
   const contactInfo = [
     {
       icon: <Mail className="h-5 w-5" />,
       label: 'Email',
-      value: 'ahmad.rifaldi@example.com',
-      href: 'mailto:ahmad.rifaldi@example.com'
+      value: 'kdpras00@gmail.com',
+      href: 'mailto:kdpras00@gmail.com'
     },
     {
       icon: <Phone className="h-5 w-5" />,
       label: 'Phone',
-      value: '+62 812 3456 7890',
-      href: 'tel:+6281234567890'
+      value: '+62 857-7076-7402',
+      href: 'https://wa.me/6285770767402'
     },
     {
       icon: <MapPin className="h-5 w-5" />,
       label: 'Location',
-      value: 'Jakarta, Indonesia',
+      value: 'Tangerang, Indonesia',
       href: '#'
     }
   ];
@@ -72,18 +96,14 @@ const Contact = () => {
     {
       icon: <Github className="h-5 w-5" />,
       label: 'GitHub',
-      href: 'https://github.com'
+      href: 'https://github.com/kdpras00'
     },
     {
       icon: <Linkedin className="h-5 w-5" />,
       label: 'LinkedIn',
-      href: 'https://linkedin.com'
+      href: 'https://linkedin.com/in/kdpras00'
     },
-    {
-      icon: <Twitter className="h-5 w-5" />,
-      label: 'Twitter',
-      href: 'https://twitter.com'
-    }
+
   ];
 
   return (

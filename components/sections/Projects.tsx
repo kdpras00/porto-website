@@ -8,59 +8,60 @@ import { ExternalLink, Github } from 'lucide-react';
 const Projects = () => {
   const projects = [
     {
-      title: 'E-Commerce Platform',
-      description: 'A full-featured e-commerce platform built with Next.js, featuring user authentication, payment integration, and admin dashboard.',
-      image: 'https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600',
-      technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Stripe', 'PostgreSQL'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
+      title: 'Story App Dicoding',
+      description: 'StoryApp is an interactive web application that allows users to create, upload, and view stories in the form of text and photos.',
+      image: 'http://localhost:3000/storyApp-dicoding.png',
+      technologies: ['React.js', 'Javascript', 'Tailwind CSS', 'Netlify', 'Dicoding Story API (RESTful API)'],
+      githubUrl: 'https://github.com/kdpras00/StoryApp/',
+      liveUrl: 'https://storyapp-dicoding.netlify.app/',
       featured: true
     },
     {
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, team collaboration features, and project tracking.',
-      image: 'https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=600',
-      technologies: ['React', 'Node.js', 'Socket.io', 'MongoDB', 'Express'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
+      title: 'GYM BRO',
+      description: 'GYM BRO is an advanced fitness platform powered by artificial intelligence (AI), designed to provide highly personalized training and nutrition strategies. Its primary goal is to empower users to reach their peak physical potential through a holistic approach that includes intelligent analysis, adaptive training, optimized nutrition, and comprehensive recovery. The platform clearly positions itself with the slogan “Precision Fitness. AI-Driven Results.”',
+      image: 'http://localhost:3000/Gym-Bro.png',
+      technologies: ['Next.js', 'Chakra UI', 'Node.js', 'Express.js', 'MongoDB', 'Vercel', 'AI Food Vision', 'Caloric Blueprint', 'Composition Metric'],
+      githubUrl: 'https://github.com/apridoilham/CapstoneProject.GYMBRO/',
+      liveUrl: 'https://capstone-project-gymbro.vercel.app/',
       featured: true
     },
-    {
-      title: 'Portfolio Website',
-      description: 'A responsive portfolio website showcasing projects and skills with smooth animations and modern design.',
-      image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=600',
-      technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'Vite'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
-      featured: false
-    },
-    {
-      title: 'Weather Dashboard',
-      description: 'A comprehensive weather dashboard with location-based forecasts, interactive maps, and weather alerts.',
-      image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600',
-      technologies: ['Vue.js', 'Chart.js', 'OpenWeather API', 'CSS3'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
-      featured: false
-    },
-    {
-      title: 'Blog Platform',
-      description: 'A modern blog platform with content management, SEO optimization, and social sharing features.',
-      image: 'https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=600',
-      technologies: ['Gatsby', 'GraphQL', 'Contentful', 'Netlify'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
-      featured: false
-    },
-    {
-      title: 'Mobile Banking App UI',
-      description: 'Modern mobile banking application UI design with intuitive navigation and secure transaction flows.',
-      image: 'https://images.pexels.com/photos/3823488/pexels-photo-3823488.jpeg?auto=compress&cs=tinysrgb&w=600',
-      technologies: ['Figma', 'React Native', 'UI/UX Design', 'Prototyping'],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
-      featured: false
-    }
+
+    // {
+    //   title: 'Portfolio Website',
+    //   description: 'A responsive portfolio website showcasing projects and skills with smooth animations and modern design.',
+    //   image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=600',
+    //   technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'Vite'],
+    //   githubUrl: 'https://github.com',
+    //   liveUrl: 'https://example.com',
+    //   featured: false
+    // },
+    // {
+    //   title: 'Weather Dashboard',
+    //   description: 'A comprehensive weather dashboard with location-based forecasts, interactive maps, and weather alerts.',
+    //   image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600',
+    //   technologies: ['Vue.js', 'Chart.js', 'OpenWeather API', 'CSS3'],
+    //   githubUrl: 'https://github.com',
+    //   liveUrl: 'https://example.com',
+    //   featured: false
+    // },
+    // {
+    //   title: 'Blog Platform',
+    //   description: 'A modern blog platform with content management, SEO optimization, and social sharing features.',
+    //   image: 'https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=600',
+    //   technologies: ['Gatsby', 'GraphQL', 'Contentful', 'Netlify'],
+    //   githubUrl: 'https://github.com',
+    //   liveUrl: 'https://example.com',
+    //   featured: false
+    // },
+    // {
+    //   title: 'Mobile Banking App UI',
+    //   description: 'Modern mobile banking application UI design with intuitive navigation and secure transaction flows.',
+    //   image: 'https://images.pexels.com/photos/3823488/pexels-photo-3823488.jpeg?auto=compress&cs=tinysrgb&w=600',
+    //   technologies: ['Figma', 'React Native', 'UI/UX Design', 'Prototyping'],
+    //   githubUrl: 'https://github.com',
+    //   liveUrl: 'https://example.com',
+    //   featured: false
+    // }
   ];
 
   const featuredProjects = projects.filter(project => project.featured);
@@ -86,7 +87,7 @@ const Projects = () => {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
                     <div className="flex gap-2">
@@ -123,7 +124,7 @@ const Projects = () => {
 
         {/* Other Projects */}
         <div>
-          <h3 className="text-2xl font-bold mb-8 text-center">Other Projects</h3>
+          {/* <h3 className="text-2xl font-bold mb-8 text-center">Other Projects</h3> */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {otherProjects.map((project, index) => (
               <Card key={index} className="group overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300">

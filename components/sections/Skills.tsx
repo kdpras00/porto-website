@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Code, Palette, Database, Globe, Smartphone, PenTool as Tool } from 'lucide-react';
+import { Code, Palette, Database, Globe, Smartphone, PenTool as Tool, Shapes } from 'lucide-react';
 
 const Skills = () => {
   const skillCategories = [
@@ -14,9 +14,11 @@ const Skills = () => {
         { name: 'React', level: 90 },
         { name: 'Next.js', level: 85 },
         { name: 'TypeScript', level: 88 },
-        { name: 'Tailwind CSS', level: 92 },
         { name: 'JavaScript', level: 90 },
-        { name: 'HTML/CSS', level: 95 }
+        { name: 'HTML/CSS', level: 95 },
+        { name: 'Tailwind CSS', level: 92 },
+        { name: 'Vue.js', level: 75 },
+        { name: 'Gatsby', level: 75 }
       ]
     },
     {
@@ -25,22 +27,10 @@ const Skills = () => {
       skills: [
         { name: 'Node.js', level: 85 },
         { name: 'Python', level: 80 },
+        { name: 'Express.js', level: 85 },
         { name: 'PostgreSQL', level: 85 },
         { name: 'MongoDB', level: 80 },
-        { name: 'Express.js', level: 85 },
         { name: 'GraphQL', level: 75 }
-      ]
-    },
-    {
-      title: 'UI/UX Design',
-      icon: <Palette className="h-6 w-6" />,
-      skills: [
-        { name: 'Figma', level: 90 },
-        { name: 'Adobe XD', level: 85 },
-        { name: 'Prototyping', level: 88 },
-        { name: 'User Research', level: 80 },
-        { name: 'Wireframing', level: 85 },
-        { name: 'Design Systems', level: 88 }
       ]
     },
     {
@@ -68,15 +58,34 @@ const Skills = () => {
       ]
     },
     {
-      title: 'Web Technologies',
-      icon: <Globe className="h-6 w-6" />,
+      title: 'UI/UX Design',
+      icon: <Palette className="h-6 w-6" />,
+      skills: [
+        { name: 'Figma', level: 90 },
+        { name: 'Adobe XD', level: 85 },
+        { name: 'Prototyping', level: 88 },
+        { name: 'User Research', level: 80 },
+        { name: 'Wireframing', level: 85 },
+        { name: 'Design Systems', level: 88 }
+      ]
+    },
+    {
+      title: 'Web Technologies & Libraries',
+      icon: <Shapes className="h-6 w-6" />,
       skills: [
         { name: 'REST APIs', level: 90 },
         { name: 'WebSockets', level: 80 },
         { name: 'PWA', level: 85 },
         { name: 'SEO', level: 88 },
         { name: 'Web Performance', level: 85 },
-        { name: 'Accessibility', level: 80 }
+        { name: 'Accessibility', level: 80 },
+        { name: 'Stripe', level: 75 },
+        { name: 'Socket.io', level: 80 },
+        { name: 'Framer Motion', level: 85 },
+        { name: 'Vite', level: 88 },
+        { name: 'Chart.js', level: 80 },
+        { name: 'Contentful', level: 78 },
+        { name: 'react-hook-form', level: 85 }
       ]
     }
   ];
