@@ -25,6 +25,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Preload hero images for better performance */}
+        <link rel="preload" as="image" href="/seriously-face.jpeg" />
+        <link rel="preload" as="image" href="/smile-face.jpeg" />
+      </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans`}>
         <ThemeProvider
           attribute="class"
