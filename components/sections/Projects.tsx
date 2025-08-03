@@ -10,7 +10,7 @@ const Projects = () => {
     {
       title: 'Story App Dicoding',
       description: 'StoryApp is an interactive web application that allows users to create, upload, and view stories in the form of text and photos.',
-      image: 'http://localhost:3000/storyApp-dicoding.png',
+      image: '/storyApp-dicoding.png',
       technologies: ['React.js', 'Javascript', 'Tailwind CSS', 'Netlify', 'Dicoding Story API (RESTful API)'],
       githubUrl: 'https://github.com/kdpras00/StoryApp/',
       liveUrl: 'https://storyapp-dicoding.netlify.app/',
@@ -19,7 +19,7 @@ const Projects = () => {
     {
       title: 'GYM BRO',
       description: 'GYM BRO is an advanced fitness platform powered by artificial intelligence (AI), designed to provide highly personalized training and nutrition strategies. Its primary goal is to empower users to reach their peak physical potential through a holistic approach that includes intelligent analysis, adaptive training, optimized nutrition, and comprehensive recovery. The platform clearly positions itself with the slogan “Precision Fitness. AI-Driven Results.”',
-      image: 'http://localhost:3000/Gym-Bro.png',
+      image: 'Gym-Bro.png',
       technologies: ['Next.js', 'Chakra UI', 'Node.js', 'Express.js', 'MongoDB', 'Vercel', 'AI Food Vision', 'Caloric Blueprint', 'Composition Metric'],
       githubUrl: 'https://github.com/apridoilham/CapstoneProject.GYMBRO/',
       liveUrl: 'https://capstone-project-gymbro.vercel.app/',
