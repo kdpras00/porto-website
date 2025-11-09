@@ -14,7 +14,7 @@ const Projects = () => {
     {
       title: 'Story App Dicoding',
       description: 'StoryApp is an interactive web application that allows users to create, upload, and view stories in the form of text and photos.',
-      image: '/storyApp-dicoding.png',
+      image: '/storyApp-Dicoding.png',
       technologies: ['React.js', 'Javascript', 'Tailwind CSS', 'Netlify', 'Dicoding Story API (RESTful API)'],
       githubUrl: 'https://github.com/kdpras00/StoryApp/',
       liveUrl: 'https://storyapp-dicoding.netlify.app/',
