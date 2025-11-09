@@ -319,13 +319,387 @@ html {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
   mix-blend-mode: difference;
   box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
-  transition: all 0.2s ease-out;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .cursor-dot:hover {
-  transform: translate(-50%, -50%) scale(1.5);
+  transform: translate3d(-50%, -50%, 0) scale(1.5);
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
+/* Web 3 Animations */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes morph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translateZ(0);
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: translateZ(0);
+  }
+}
+
+@keyframes float-3d {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotateX(0) rotateY(0);
+  }
+  33% {
+    transform: translate3d(0, -20px, 0) rotateX(5deg) rotateY(5deg);
+  }
+  66% {
+    transform: translate3d(0, -10px, 0) rotateX(-5deg) rotateY(-5deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3),
+                0 0 40px rgba(245, 158, 11, 0.2),
+                0 0 60px rgba(245, 158, 11, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.5),
+                0 0 60px rgba(245, 158, 11, 0.3),
+                0 0 90px rgba(245, 158, 11, 0.2);
+  }
+}
+
+@keyframes rotate-gradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-100px) translateX(50px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px) translateX(100px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.animate-morph {
+  animation: morph 8s ease-in-out infinite;
+}
+
+.animate-float-3d {
+  animation: float-3d 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-rotate-gradient {
+  animation: rotate-gradient 20s linear infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  background-size: 2000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+.animate-particle {
+  animation: particle-float 15s infinite ease-out;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-dark {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* 3D Transform Utilities */
+.perspective-3d {
+  perspective: 1000px;
+}
+
+.transform-3d {
+  transform-style: preserve-3d;
+}
+
+.hover-3d:hover {
+  transform: rotateY(5deg) rotateX(5deg) scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* Gradient Text with Animation */
+.text-gradient-animated {
+  background: linear-gradient(
+    90deg,
+    #f59e0b,
+    #ea580c,
+    #f59e0b,
+    #fbbf24,
+    #f59e0b
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 3s linear infinite;
+}
+
+/* Particle Background */
+.particle-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.particle-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(234, 88, 12, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+  animation: morph 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Scroll Reveal Animation */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Neon Glow Effect */
+.neon-glow {
+  text-shadow: 
+    0 0 10px rgba(245, 158, 11, 0.5),
+    0 0 20px rgba(245, 158, 11, 0.3),
+    0 0 30px rgba(245, 158, 11, 0.2);
+}
+
+.neon-border {
+  box-shadow: 
+    0 0 10px rgba(245, 158, 11, 0.5),
+    0 0 20px rgba(245, 158, 11, 0.3),
+    inset 0 0 10px rgba(245, 158, 11, 0.1);
+}
+
+/* Liquid Morphing Shape */
+.liquid-shape {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: morph 10s ease-in-out infinite;
+}
+
+/* Glitch Effect */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch-effect {
+  animation: glitch 0.3s infinite;
+}
+
+/* Magnetic Hover Effect */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.magnetic:hover {
+  transform: scale(1.1) translateZ(0);
+}
+
+/* Animated Background Gradient */
+.bg-animated-gradient {
+  background: linear-gradient(
+    -45deg,
+    #0a0a0a,
+    #1a0a0a,
+    #0a0a1a,
+    #1a1a0a
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Glow Orb - Optimized with GPU acceleration */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.6;
+  animation: float-3d 8s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.glow-orb-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.4), transparent);
+  top: 10%;
+  left: 10%;
+}
+
+.glow-orb-2 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.4), transparent);
+  bottom: 20%;
+  right: 15%;
+  animation-delay: -2s;
+}
+
+.glow-orb-3 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.3), transparent);
+  top: 50%;
+  right: 30%;
+  animation-delay: -4s;
+}
+
+/* Optimized floating particle animation */
+@keyframes float-particle {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate3d(0, -30px, 0) scale(1.2);
+    opacity: 0.4;
+  }
+}
+
+/* GPU-accelerated animations */
+.gpu-accelerated {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Smooth scroll reveal with GPU acceleration */
+.scroll-reveal-gpu {
+  opacity: 0;
+  transform: translate3d(0, 50px, 0);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.scroll-reveal-gpu.revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Optimized hover effects */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.hover-lift:hover {
+  transform: translate3d(0, -10px, 0);
+}
+
+/* Shimmer animation for progress bars */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

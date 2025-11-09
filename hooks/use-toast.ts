@@ -6,13 +6,15 @@ import * as React from 'react';
 import type { ToastActionElement, ToastProps } from '@/components/ui/toast';
 
 const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 1000000;
+const TOAST_REMOVE_DELAY = 5000; // Default 5 seconds
 
 type ToasterToast = ToastProps & {
   id: string;
   title?: React.ReactNode;
   description?: React.ReactNode;
   action?: ToastActionElement;
+  className?: string;
+  duration?: number;
 };
 
 const actionTypes = {
@@ -55,7 +57,7 @@ interface State {
 
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
-const addToRemoveQueue = (toastId: string) => {
+const addToRemoveQueue = (toastId: string, duration: number = TOAST_REMOVE_DELAY) => {
   if (toastTimeouts.has(toastId)) {
     return;
   }
@@ -66,18 +68,23 @@ const addToRemoveQueue = (toastId: string) => {
       type: 'REMOVE_TOAST',
       toastId: toastId,
     });
-  }, TOAST_REMOVE_DELAY);
+  }, duration);
 
   toastTimeouts.set(toastId, timeout);
 };
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'ADD_TOAST':
+    case 'ADD_TOAST': {
+      // Schedule auto-dismiss if duration is set
+      if (action.toast.duration && action.toast.duration > 0) {
+        addToRemoveQueue(action.toast.id, action.toast.duration);
+      }
       return {
         ...state,
         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
       };
+    }
 
     case 'UPDATE_TOAST':
       return {
@@ -90,13 +97,22 @@ export const reducer = (state: State, action: Action): State => {
     case 'DISMISS_TOAST': {
       const { toastId } = action;
 
-      // ! Side effects ! - This could be extracted into a dismissToast() action,
-      // but I'll keep it here for simplicity
+      // Clear timeout if exists
       if (toastId) {
-        addToRemoveQueue(toastId);
+        const timeout = toastTimeouts.get(toastId);
+        if (timeout) {
+          clearTimeout(timeout);
+          toastTimeouts.delete(toastId);
+        }
+        // Schedule removal
+        addToRemoveQueue(toastId, 300); // Quick removal after dismiss
       } else {
+        // Clear all timeouts
+        toastTimeouts.forEach((timeout) => clearTimeout(timeout));
+        toastTimeouts.clear();
+        // Schedule removal for all
         state.toasts.forEach((toast) => {
-          addToRemoveQueue(toast.id);
+          addToRemoveQueue(toast.id, 300);
         });
       }
 
@@ -139,7 +155,7 @@ function dispatch(action: Action) {
 
 type Toast = Omit<ToasterToast, 'id'>;
 
-function toast({ ...props }: Toast) {
+function toast({ duration, ...props }: Toast & { duration?: number }) {
   const id = genId();
 
   const update = (props: ToasterToast) =>
@@ -149,16 +165,19 @@ function toast({ ...props }: Toast) {
     });
   const dismiss = () => dispatch({ type: 'DISMISS_TOAST', toastId: id });
 
+  const toastData: ToasterToast = {
+    ...props,
+    id,
+    duration: duration || TOAST_REMOVE_DELAY,
+    open: true,
+    onOpenChange: (open) => {
+      if (!open) dismiss();
+    },
+  };
+
   dispatch({
     type: 'ADD_TOAST',
-    toast: {
-      ...props,
-      id,
-      open: true,
-      onOpenChange: (open) => {
-        if (!open) dismiss();
-      },
-    },
+    toast: toastData,
   });
 
   return {
