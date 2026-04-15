@@ -1,26 +1,38 @@
 "use client";
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { memo } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import Image from 'next/image';
 
+interface Project {
+  title: string;
+  description?: string;
+  image: string;
+  technologies?: string[];
+  githubUrl: string;
+  liveUrl: string;
+  featured: boolean;
+}
+
 const Projects = () => {
-  const projects = [
+  const projects: Project[] = [
     {
       title: 'Story App Dicoding',
+      description: 'A social media-like application for sharing stories with location and image support.',
       image: '/storyApp-Dicoding.png',
+      technologies: ['Android', 'Kotlin', 'Maps API', 'Retrofit'],
       githubUrl: 'https://github.com/kdpras00/StoryApp/',
       liveUrl: 'https://storyapp-dicoding.netlify.app/',
       featured: true
     },
     {
       title: 'GYM BRO',
+      description: 'A comprehensive fitness tracking and gym management platform developed as a capstone project.',
       image: '/Gym-Bro.png',
+      technologies: ['React', 'Node.js', 'Firebase', 'Tailwind CSS'],
       githubUrl: 'https://github.com/apridoilham/CapstoneProject.GYMBRO/',
       liveUrl: 'https://capstone-project-gymbro.vercel.app/',
       featured: true
@@ -123,15 +135,8 @@ const Projects = () => {
                     <CardHeader>
                       <h4 className="text-xl font-bold text-amber-100">{project.title}</h4>
                     </CardHeader>
-                    <CardContent>
-                      {project.description && <p className="text-amber-100/70 mb-4">{project.description}</p>}
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies?.map((tech) => (
-                          <Badge key={tech} variant="outline" className="bg-amber-900/30 text-amber-200 border-amber-700/50">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
+                    <CardContent className="pt-2">
+                      {/* Minimalist footer - Navigation icons available on image hover */}
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -166,45 +171,30 @@ const Projects = () => {
                             quality={75}
                           />
                         )}
+                        {/* Hover Overlay with Icons for Other Projects */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <Button size="icon" variant="secondary" className="glass w-10 h-10" asChild>
+                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                              <Github className="h-5 w-5" />
+                            </a>
+                          </Button>
+                          <Button size="icon" variant="secondary" className="glass w-10 h-10" asChild>
+                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="h-5 w-5" />
+                            </a>
+                          </Button>
+                        </div>
                       </div>
-                      <CardHeader className="pb-2">
+                      <CardHeader className="pb-2 text-center">
                         <h4 className="text-lg font-bold text-amber-100">{project.title}</h4>
                       </CardHeader>
-                      <CardContent>
-                        {project.description && (
-                          <p className="text-amber-100/70 text-sm mb-3 line-clamp-2">
-                            {project.description}
-                          </p>
-                        )}
-                        <div className="flex flex-wrap gap-1 mb-3">
-                          {project.technologies?.slice(0, 3).map((tech) => (
-                            <Badge key={tech} variant="outline" className="text-xs bg-amber-900/30 text-amber-200 border-amber-700/50">
-                              {tech}
-                            </Badge>
-                          ))}
-                          {project.technologies && project.technologies.length > 3 && (
-                            <Badge variant="outline" className="text-xs bg-amber-900/30 text-amber-200 border-amber-700/50">
-                              +{project.technologies.length - 3}
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="flex gap-2">
-                          <Button size="sm" variant="ghost" className="glass" asChild>
-                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                              <Github className="h-4 w-4" />
-                            </a>
-                          </Button>
-                          <Button size="sm" variant="ghost" className="glass" asChild>
-                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="h-4 w-4" />
-                            </a>
-                          </Button>
-                        </div>
+                      <CardContent className="pt-0">
+                        {/* Minimalist card content */}
                       </CardContent>
-                    </Card>
-                  </motion.div>
-                </ScrollReveal>
-              ))}
+                  </Card>
+                </motion.div>
+              </ScrollReveal>
+            ))}
             </div>
           </div>
         )}

@@ -27,7 +27,7 @@ const Hero = () => {
                 style={{
                     backgroundImage: `url('/seriously-face.jpeg')`,
                     backgroundSize: '100%',
-                    backgroundPosition: '50% 24%',
+                    backgroundPosition: '48% 15%',
                     backgroundRepeat: 'no-repeat',
                     opacity: isLoaded ? 1 : 0
                 }}
