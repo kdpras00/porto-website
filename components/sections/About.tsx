@@ -51,8 +51,8 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="py-20 bg-animated-gradient relative overflow-hidden">
-      <div className="absolute inset-0 particle-bg opacity-50"></div>
+    <section id="about" className="py-20 relative overflow-hidden">
+
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -75,10 +75,10 @@ const About = () => {
           {/* Personal Info */}
           <motion.div variants={itemVariants} className="space-y-6">
             <motion.div
-              whileHover={{ scale: 1.02, y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.3 }}
             >
-              <Card className="border-0 shadow-lg glass-dark hover-3d">
+              <Card className="border-0 shadow-lg glass-dark">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
                     <Code className="h-6 w-6 text-amber-400" />
@@ -127,10 +127,10 @@ const About = () => {
           {/* Experience */}
           <motion.div variants={itemVariants} className="space-y-6">
             <motion.div
-              whileHover={{ scale: 1.02, y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.3 }}
             >
-              <Card className="border-0 shadow-lg glass-dark hover-3d">
+              <Card className="border-0 shadow-lg glass-dark">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
                     <Palette className="h-6 w-6 text-amber-400" />

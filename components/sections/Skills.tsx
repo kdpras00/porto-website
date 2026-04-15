@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Code, Palette, Database, Smartphone, PenTool as Tool, Shapes, FileCode, Zap, Webhook, Monitor, Search, Gauge, Eye, Lightbulb, Users, Layout, Layers, Package, GitBranch, Sparkles } from 'lucide-react';
+import { Code, Palette, Database, Smartphone, PenTool as Tool, Shapes, FileCode, Zap, Webhook, Monitor, Search, Gauge, Eye, Lightbulb, Users, Layout, Layers, Package, GitBranch } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect, memo, useMemo, useCallback } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -326,26 +326,7 @@ const Skills = () => {
       
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <ScrollReveal direction="down">
-          <div className="text-center mb-20">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 mb-4"
-            >
-              <Sparkles className="h-6 w-6 text-amber-400 animate-pulse" />
-              <span className="text-amber-400 font-semibold text-sm uppercase tracking-wider">My Expertise</span>
-              <Sparkles className="h-6 w-6 text-amber-400 animate-pulse" />
-            </motion.div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-gradient-animated">
-              Skills & Technologies
-            </h2>
-            <p className="text-lg sm:text-xl text-amber-100/80 max-w-3xl mx-auto leading-relaxed">
-              A comprehensive collection of technologies and tools I use to build innovative and scalable solutions
-            </p>
-          </div>
-        </ScrollReveal>
+
 
         {/* Skills Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">

@@ -29,7 +29,10 @@ const ScrollReveal = ({ children, delay = 0, direction = 'up', className = '' }:
       animate={isInView ? { opacity: 1, y: 0, x: 0 } : {}}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
-      style={{ willChange: isInView ? 'auto' : 'transform, opacity' }}
+      style={{ 
+        willChange: isInView ? 'auto' : 'transform, opacity',
+        transform: isInView ? 'none' : 'translateZ(0)'
+      }}
     >
       {children}
     </motion.div>

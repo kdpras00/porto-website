@@ -60,6 +60,8 @@
 @layer base {
   * {
     @apply border-border;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
@@ -260,8 +262,8 @@ html {
 .bg-noise {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
+  opacity: 0.03;
+  /* Removed mix-blend-mode for performance */
 }
 
 .hover-reveal {
@@ -382,14 +384,7 @@ html {
   }
 }
 
-@keyframes rotate-gradient {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+
 
 @keyframes shimmer {
   0% {
@@ -588,17 +583,21 @@ html {
   transform: scale(1.1) translateZ(0);
 }
 
-/* Animated Background Gradient */
-.bg-animated-gradient {
-  background: linear-gradient(
-    -45deg,
-    #0a0a0a,
-    #1a0a0a,
-    #0a0a1a,
-    #1a1a0a
-  );
-  background-size: 400% 400%;
-  animation: gradient-shift 15s ease infinite;
+/* New Optimized Global Background */
+.global-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+
+.global-bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, #1a0a0a, #0a0a1a, #0a0a0a);
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
 /* Glow Orb - Optimized with GPU acceleration */
@@ -640,16 +639,7 @@ html {
 }
 
 /* Optimized floating particle animation */
-@keyframes float-particle {
-  0%, 100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.15;
-  }
-  50% {
-    transform: translate3d(0, -30px, 0) scale(1.2);
-    opacity: 0.4;
-  }
-}
+
 
 /* GPU-accelerated animations */
 .gpu-accelerated {

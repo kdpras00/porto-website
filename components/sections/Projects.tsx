@@ -13,18 +13,14 @@ const Projects = () => {
   const projects = [
     {
       title: 'Story App Dicoding',
-      description: 'StoryApp is an interactive web application that allows users to create, upload, and view stories in the form of text and photos.',
       image: '/storyApp-Dicoding.png',
-      technologies: ['React.js', 'Javascript', 'Tailwind CSS', 'Netlify', 'Dicoding Story API (RESTful API)'],
       githubUrl: 'https://github.com/kdpras00/StoryApp/',
       liveUrl: 'https://storyapp-dicoding.netlify.app/',
       featured: true
     },
     {
       title: 'GYM BRO',
-      description: 'GYM BRO is an advanced fitness platform powered by artificial intelligence (AI), designed to provide highly personalized training and nutrition strategies. Its primary goal is to empower users to reach their peak physical potential through a holistic approach that includes intelligent analysis, adaptive training, optimized nutrition, and comprehensive recovery. The platform clearly positions itself with the slogan "Precision Fitness. AI-Driven Results."',
       image: '/Gym-Bro.png',
-      technologies: ['Next.js', 'Chakra UI', 'Node.js', 'Express.js', 'MongoDB', 'Vercel', 'AI Food Vision', 'Caloric Blueprint', 'Composition Metric'],
       githubUrl: 'https://github.com/apridoilham/CapstoneProject.GYMBRO/',
       liveUrl: 'https://capstone-project-gymbro.vercel.app/',
       featured: true
@@ -72,8 +68,8 @@ const Projects = () => {
   const otherProjects = projects.filter(project => !project.featured);
 
   return (
-    <section id="projects" className="py-20 bg-animated-gradient relative overflow-hidden">
-      <div className="absolute inset-0 particle-bg opacity-40"></div>
+    <section id="projects" className="py-20 relative overflow-hidden">
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <ScrollReveal direction="down">
           <div className="text-center mb-16">
@@ -94,20 +90,21 @@ const Projects = () => {
               <ScrollReveal key={index} delay={index * 0.1} direction="up">
                 <motion.div
                   whileHover={{ y: -5 }}
-                  transition={{ type: "tween", duration: 0.2 }}
-                  className="perspective-3d"
+                  transition={{ duration: 0.3 }}
                 >
-                  <Card className="group overflow-hidden border-0 shadow-lg glass-dark hover-3d">
+                  <Card className="group overflow-hidden border-0 shadow-lg glass-dark">
                     <div className="relative overflow-hidden h-64 bg-amber-900/20">
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-contain transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
-                        quality={85}
-                      />
+                      {project.image && (
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-contain transition-transform duration-300 group-hover:scale-105"
+                          loading="lazy"
+                          quality={85}
+                        />
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="flex gap-2">
                           <Button size="sm" variant="secondary" className="glass" asChild>
@@ -127,9 +124,9 @@ const Projects = () => {
                       <h4 className="text-xl font-bold text-amber-100">{project.title}</h4>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-amber-100/70 mb-4">{project.description}</p>
+                      {project.description && <p className="text-amber-100/70 mb-4">{project.description}</p>}
                       <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech) => (
+                        {project.technologies?.map((tech) => (
                           <Badge key={tech} variant="outline" className="bg-amber-900/30 text-amber-200 border-amber-700/50">
                             {tech}
                           </Badge>
@@ -156,32 +153,36 @@ const Projects = () => {
                     whileHover={{ y: -3 }}
                     transition={{ type: "tween", duration: 0.2 }}
                   >
-                    <Card className="group overflow-hidden border-0 shadow-md glass-dark hover-3d">
+                  <Card className="group overflow-hidden border-0 shadow-md glass-dark">
                       <div className="relative overflow-hidden h-32 bg-amber-900/20">
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          loading="lazy"
-                          quality={75}
-                        />
+                        {project.image && (
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            loading="lazy"
+                            quality={75}
+                          />
+                        )}
                       </div>
                       <CardHeader className="pb-2">
                         <h4 className="text-lg font-bold text-amber-100">{project.title}</h4>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-amber-100/70 text-sm mb-3 line-clamp-2">
-                          {project.description}
-                        </p>
+                        {project.description && (
+                          <p className="text-amber-100/70 text-sm mb-3 line-clamp-2">
+                            {project.description}
+                          </p>
+                        )}
                         <div className="flex flex-wrap gap-1 mb-3">
-                          {project.technologies.slice(0, 3).map((tech) => (
+                          {project.technologies?.slice(0, 3).map((tech) => (
                             <Badge key={tech} variant="outline" className="text-xs bg-amber-900/30 text-amber-200 border-amber-700/50">
                               {tech}
                             </Badge>
                           ))}
-                          {project.technologies.length > 3 && (
+                          {project.technologies && project.technologies.length > 3 && (
                             <Badge variant="outline" className="text-xs bg-amber-900/30 text-amber-200 border-amber-700/50">
                               +{project.technologies.length - 3}
                             </Badge>

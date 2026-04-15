@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -15,7 +15,7 @@ const Header = () => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 50);
+          setIsScrolled(window.scrollY > 20);
           ticking = false;
         });
         ticking = true;
@@ -36,120 +36,122 @@ const Header = () => {
 
   const navItems = [
     { label: 'About', href: 'about' },
-    { label: 'Timeline', href: 'skills' },
     { label: 'Works', href: 'projects' },
     { label: 'Contact', href: 'contact' },
   ];
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-        ? 'glass-dark border-b border-amber-900/20'
-        : 'bg-transparent'
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${isScrolled
+        ? 'glass-dark border-b border-amber-900/10 py-2'
+        : 'bg-transparent py-4'
         }`}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between h-20">
+      <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="relative flex items-center h-16">
+          
+          {/* Left: Logo/Name */}
           <motion.div
-            className="flex-shrink-0"
+            className="flex-shrink-0 z-20"
             whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            <h2 className="text-xl font-bold font-heading tracking-tight">
-              <span className="text-amber-50 neon-glow">KURNIAWAN DWI</span>{' '}
-              <span className="text-amber-200/60 italic">PRASETYO</span>
-            </h2>
+            <button 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="group flex items-center gap-1"
+            >
+              <span className="text-lg sm:text-xl font-poppins font-bold tracking-tighter text-amber-50 group-hover:text-amber-400 transition-all">
+                kurniawandwipras
+              </span>
+              <span className="w-1 h-1 bg-amber-500 rounded-full group-hover:scale-150 transition-transform duration-300" />
+            </button>
           </motion.div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-10">
+          {/* Center: Desktop Navigation */}
+          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-10">
             {navItems.map((item, index) => (
               <motion.button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="text-amber-100/70 hover:text-amber-100 transition-colors duration-200 text-sm font-medium relative group"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+                className="text-amber-50/70 hover:text-amber-50 transition-all duration-300 text-sm font-poppins font-medium tracking-wide relative py-1"
+                whileHover={{ y: -2 }}
               >
                 {item.label}
                 <motion.span
-                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-400"
+                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 rounded-full"
                   whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.3 }}
                 />
               </motion.button>
             ))}
           </nav>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center">
-            <motion.div
-              whileTap={{ scale: 0.9 }}
-              className="md:hidden"
+          {/* Right: Actions/Socials */}
+          <div className="hidden md:flex items-center ml-auto gap-8 z-20">
+            <a 
+              href="https://linkedin.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-xs sm:text-sm font-poppins font-medium text-amber-50/60 hover:text-amber-400 transition-all group"
             >
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-amber-100/70 hover:text-amber-100 glass rounded-full"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                <AnimatePresence mode="wait">
-                  {isMobileMenuOpen ? (
-                    <motion.div
-                      key="close"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <X className="h-4 w-4" />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="menu"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Menu className="h-4 w-4" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </Button>
-            </motion.div>
+              Linkedin
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+            </a>
+            <a 
+              href="/resume.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-xs sm:text-sm font-poppins font-medium text-amber-50/60 hover:text-amber-400 transition-all group"
+            >
+              Resume
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+            </a>
+          </div>
+
+          {/* Mobile: Toggle */}
+          <div className="md:hidden ml-auto">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-amber-100 hover:bg-amber-900/20 rounded-full"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <AnimatePresence mode="wait">
+                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </AnimatePresence>
+            </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Menu Panel */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-amber-900/20 overflow-hidden"
             >
-              <div className="px-2 pt-2 pb-3 space-y-1 glass-dark border-b border-amber-900/20">
-                {navItems.map((item, index) => (
-                  <motion.button
+              <div className="flex flex-col p-6 gap-6">
+                {navItems.map((item) => (
+                  <button
                     key={item.href}
                     onClick={() => scrollToSection(item.href)}
-                    className="block px-3 py-2 text-amber-100/70 hover:text-amber-100 transition-colors duration-200 text-sm font-medium w-full text-left rounded-lg hover:bg-amber-900/20"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className="text-lg font-poppins font-medium text-left text-amber-50/70 hover:text-amber-400 transition-colors"
                   >
                     {item.label}
-                  </motion.button>
+                  </button>
                 ))}
+                <div className="h-px bg-amber-900/20 w-full" />
+                <div className="flex flex-col gap-4">
+                  <a href="#" className="flex items-center justify-between text-sm font-poppins text-amber-50/50">
+                    LinkedIn <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                  <a href="#" className="flex items-center justify-between text-sm font-poppins text-amber-50/50">
+                    Resume <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                </div>
               </div>
             </motion.div>
           )}
