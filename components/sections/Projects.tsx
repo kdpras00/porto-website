@@ -117,7 +117,7 @@ const Projects = () => {
                           quality={85}
                         />
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-end p-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                         <div className="flex gap-2">
                           <Button size="sm" variant="secondary" className="glass" asChild>
                             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
@@ -172,7 +172,7 @@ const Projects = () => {
                           />
                         )}
                         {/* Hover Overlay with Icons for Other Projects */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-center justify-center gap-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                           <Button size="icon" variant="secondary" className="glass w-10 h-10" asChild>
                             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                               <Github className="h-5 w-5" />

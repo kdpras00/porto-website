@@ -26,7 +26,7 @@ const Hero = () => {
                 className="absolute inset-0 z-0 transition-opacity duration-1000 ease-out"
                 style={{
                     backgroundImage: `url('/seriously-face.jpeg')`,
-                    backgroundSize: '100%',
+                    backgroundSize: 'cover',
                     backgroundPosition: '48% 15%',
                     backgroundRepeat: 'no-repeat',
                     opacity: isLoaded ? 1 : 0
@@ -36,13 +36,13 @@ const Hero = () => {
             {/* Enhanced overlay with better gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/70 to-[#0a0a0a]/30 z-10"></div>
 
-            <div className="absolute top-[25%] left-1/2 -translate-x-1/2 w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center z-20">
+            <div className="absolute top-[30%] sm:top-[25%] left-1/2 -translate-x-1/2 w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center z-20">
                 {/* Hero Content with Elite Artistic Sensor Bar */}
                 <motion.div 
                     initial={{ scaleX: 0, opacity: 0 }}
                     animate={{ scaleX: 1, opacity: 1 }}
                     transition={{ duration: 1, delay: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                    className="relative w-fit flex flex-col items-center justify-center text-center bg-[#0a0a0a] px-8 py-6 sm:px-16 sm:py-10 border-x border-amber-500/10 shadow-[0_0_50px_rgba(0,0,0,0.8)]"
+                    className="relative w-fit flex flex-col items-center justify-center text-center bg-[#0a0a0a] px-4 py-8 sm:px-16 sm:py-10 border-x border-amber-500/10 shadow-[0_0_50px_rgba(0,0,0,0.8)]"
                 >
                     {/* Viewfinder L-Corners */}
                     <div className="absolute inset-0 pointer-events-none">
@@ -95,17 +95,17 @@ const Hero = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5, delay: 1.2 }}
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-amber-50 leading-tight relative z-10"
+                        className="text-xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-amber-50 leading-[1.1] relative z-10"
                     >
                         <motion.span
-                            className="block mb-2 whitespace-nowrap"
+                            className="block mb-2"
                             animate={{ opacity: [0, 1, 0.8, 1] }}
                             transition={{ duration: 0.2, delay: 1.4 }}
                         >
                             I BUILD THE QUIET SPACE
                         </motion.span>
                         <motion.span
-                            className="block text-gradient-animated neon-glow whitespace-nowrap"
+                            className="block text-gradient-animated neon-glow"
                             animate={{ opacity: [0, 1, 0.9, 1] }}
                             transition={{ duration: 0.2, delay: 1.6 }}
                         >
