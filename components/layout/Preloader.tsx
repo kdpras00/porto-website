@@ -124,19 +124,19 @@ const Preloader = () => {
             )}
 
             {/* Seamless Layout Match with Hero - 1:1 Structural Duplicate */}
-            <div className="absolute top-[25%] left-1/2 -translate-x-1/2 w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center z-20">
+            <div className="absolute top-[22%] sm:top-[25%] left-1/2 -translate-x-1/2 w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center z-20">
                 {/* Hero Content with Identical Padding */}
-                <div className="relative w-fit flex flex-col items-center justify-center text-center px-8 py-6 sm:px-16 sm:py-10">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-amber-50 leading-tight relative z-10">
+                <div className="relative w-fit flex flex-col items-center justify-center text-center px-4 py-8 sm:px-16 sm:py-10">
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-amber-50 leading-[1.1] relative z-10">
                         <Line 
                             targetText="I BUILD THE QUIET SPACE" 
                             delay={400} 
-                            className="block mb-2 whitespace-nowrap" 
+                            className="block mb-2" 
                         />
                         <Line 
                             targetText="WHERE FUNCTION AND BEAUTY MEET." 
                             delay={1000} 
-                            className="block text-gradient-animated neon-glow whitespace-nowrap" 
+                            className="block text-gradient-animated neon-glow" 
                         />
                     </h1>
                 </div>

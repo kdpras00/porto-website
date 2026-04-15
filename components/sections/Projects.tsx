@@ -36,44 +36,7 @@ const Projects = () => {
       githubUrl: 'https://github.com/apridoilham/CapstoneProject.GYMBRO/',
       liveUrl: 'https://capstone-project-gymbro.vercel.app/',
       featured: true
-    },
-
-    // {
-    //   title: 'Portfolio Website',
-    //   description: 'A responsive portfolio website showcasing projects and skills with smooth animations and modern design.',
-    //   image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=600',
-    //   technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'Vite'],
-    //   githubUrl: 'https://github.com',
-    //   liveUrl: 'https://example.com',
-    //   featured: false
-    // },
-    // {
-    //   title: 'Weather Dashboard',
-    //   description: 'A comprehensive weather dashboard with location-based forecasts, interactive maps, and weather alerts.',
-    //   image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600',
-    //   technologies: ['Vue.js', 'Chart.js', 'OpenWeather API', 'CSS3'],
-    //   githubUrl: 'https://github.com',
-    //   liveUrl: 'https://example.com',
-    //   featured: false
-    // },
-    // {
-    //   title: 'Blog Platform',
-    //   description: 'A modern blog platform with content management, SEO optimization, and social sharing features.',
-    //   image: 'https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=600',
-    //   technologies: ['Gatsby', 'GraphQL', 'Contentful', 'Netlify'],
-    //   githubUrl: 'https://github.com',
-    //   liveUrl: 'https://example.com',
-    //   featured: false
-    // },
-    // {
-    //   title: 'Mobile Banking App UI',
-    //   description: 'Modern mobile banking application UI design with intuitive navigation and secure transaction flows.',
-    //   image: 'https://images.pexels.com/photos/3823488/pexels-photo-3823488.jpeg?auto=compress&cs=tinysrgb&w=600',
-    //   technologies: ['Figma', 'React Native', 'UI/UX Design', 'Prototyping'],
-    //   githubUrl: 'https://github.com',
-    //   liveUrl: 'https://example.com',
-    //   featured: false
-    // }
+    }
   ];
 
   const featuredProjects = projects.filter(project => project.featured);
@@ -81,7 +44,6 @@ const Projects = () => {
 
   return (
     <section id="projects" className="py-20 relative overflow-hidden">
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <ScrollReveal direction="down">
           <div className="text-center mb-16">
@@ -136,7 +98,7 @@ const Projects = () => {
                       <h4 className="text-xl font-bold text-amber-100">{project.title}</h4>
                     </CardHeader>
                     <CardContent className="pt-2">
-                      {/* Minimalist footer - Navigation icons available on image hover */}
+                       {/* Minimalist footer - Icons available on hover */}
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -158,7 +120,7 @@ const Projects = () => {
                     whileHover={{ y: -3 }}
                     transition={{ type: "tween", duration: 0.2 }}
                   >
-                  <Card className="group overflow-hidden border-0 shadow-md glass-dark">
+                    <Card className="group overflow-hidden border-0 shadow-md glass-dark">
                       <div className="relative overflow-hidden h-32 bg-amber-900/20">
                         {project.image && (
                           <Image
@@ -171,7 +133,6 @@ const Projects = () => {
                             quality={75}
                           />
                         )}
-                        {/* Hover Overlay with Icons for Other Projects */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-center justify-center gap-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                           <Button size="icon" variant="secondary" className="glass w-10 h-10" asChild>
                             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
@@ -191,10 +152,10 @@ const Projects = () => {
                       <CardContent className="pt-0">
                         {/* Minimalist card content */}
                       </CardContent>
-                  </Card>
-                </motion.div>
-              </ScrollReveal>
-            ))}
+                    </Card>
+                  </motion.div>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         )}
