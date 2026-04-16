@@ -56,7 +56,7 @@ const Projects = () => {
       description: 'A web-based information system conseling for Latansa Cendekia built with Laravel and Tailwind CSS. ',
       image: '/sibk-latansa-cendekia.png',
       technologies: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
-      githubUrl: 'https://github.com/kdpras00/SIBK-Latansa-Cendekia/',
+      githubUrl: 'https://github.com/nandaindi/sibk-latansacendikia/',
       liveUrl: 'https://sibk-latansacendekia.my.id/',
       featured: true
     },
