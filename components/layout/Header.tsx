@@ -108,7 +108,7 @@ const Header = () => {
             </button>
 
             <a 
-              href="https://linkedin.com" 
+              href="https://linkedin.com/kdpras00" 
               target="_blank" 
               rel="noopener noreferrer"
               onMouseEnter={() => playSound('hover')}
@@ -119,7 +119,7 @@ const Header = () => {
               <ArrowUpRight className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
             </a>
             <a 
-              href="/resume.pdf" 
+              href="/https://drive.google.com/file/d/19S1MWum16j0L0jGT5rS2AytpBoME5oPl/view?usp=sharing" 
               target="_blank" 
               rel="noopener noreferrer"
               onMouseEnter={() => playSound('hover')}
