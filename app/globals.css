@@ -125,6 +125,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Hide default cursor on desktop for custom pointer experience */
+@media (pointer: fine) {
+  html, body {
+    cursor: none;
+  }
+}
+
 .fade-in {
   animation: fadeIn 0.8s ease-in-out;
 }

@@ -7,6 +7,8 @@ import { LazyMotion, domMax } from 'framer-motion';
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider';
 import GlobalBackground from '@/components/layout/GlobalBackground';
 import { PreloaderProvider } from '@/components/providers/PreloaderProvider';
+import CustomCursor from '@/components/CustomCursor';
+import { SoundProvider } from '@/components/providers/SoundProvider';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -45,11 +47,14 @@ export default function RootLayout({
         >
           <GlobalBackground />
           <PreloaderProvider>
-            <LazyMotion features={domMax}>
-              <SmoothScrollProvider>
-                {children}
-              </SmoothScrollProvider>
-            </LazyMotion>
+            <SoundProvider>
+              <CustomCursor />
+              <LazyMotion features={domMax}>
+                <SmoothScrollProvider>
+                  {children}
+                </SmoothScrollProvider>
+              </LazyMotion>
+            </SoundProvider>
           </PreloaderProvider>
           <Toaster />
         </ThemeProvider>

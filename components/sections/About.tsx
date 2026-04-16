@@ -1,15 +1,16 @@
 "use client";
 
+import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Code, Palette, Coffee } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useSound } from '@/components/providers/SoundProvider';
 
 const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { playSound } = useSound();
 
   const interests = [
     'Web Development',
@@ -22,143 +23,153 @@ const About = () => {
     {
       title: 'Junior Full Stack Developer',
       company: 'Farovon Maju Bersama.',
-      period: ' April 2025 - Juli 2025',
+      period: 'April 2025 - Juli 2025',
       description: 'Participated in the development of web application features using Next.js and React.js on the frontend, and Laravel for backend needs. Assisted with API integration and performed debugging and feature testing alongside the senior development team.'
     },
-
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.4, 0, 0.2, 1] as const
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+        toggleActions: "play none none reverse"
       }
-    }
-  };
+    });
+
+    // Title reveal
+    tl.fromTo(".about-title", 
+      { y: 50, opacity: 0, filter: 'blur(10px)' },
+      { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1, ease: "power3.out" }
+    );
+
+    // Cards staggered entrance
+    tl.fromTo(".about-card",
+      { y: 100, opacity: 0, scale: 0.95 },
+      { y: 0, opacity: 1, scale: 1, duration: 1.2, stagger: 0.2, ease: "power4.out" },
+      "-=0.5"
+    );
+
+    // Subtle drift for the whole container to feel 'liquid'
+    gsap.to(containerRef.current, {
+      y: -20,
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
 
   return (
-    <section id="about" className="py-20 relative overflow-hidden">
-
-      <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient-animated">About Me</h2>
-          <p className="text-lg text-amber-100/80 max-w-2xl mx-auto">
-            Get to know more about my journey, experience, and what drives my passion for technology.
+    <section id="about" className="py-32 relative overflow-hidden" ref={containerRef}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <div className="about-title text-center mb-24">
+          <h2 className="text-4xl sm:text-6xl font-bold mb-6 text-gradient-animated tracking-tighter uppercase font-poppins">Technical Identity</h2>
+          <p className="text-xl text-amber-100/40 max-w-2xl mx-auto font-light tracking-wide italic">
+            "Merging structured engineering with intuitive human-centric design."
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid lg:grid-cols-2 gap-12 items-start"
-        >
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Personal Info */}
-          <motion.div variants={itemVariants} className="space-y-6">
-            <motion.div
-              whileHover={{ y: -5 }}
-              transition={{ duration: 0.3 }}
+          <div className="about-card">
+            <Card 
+              className="border-0 shadow-2xl glass-dark rounded-none group"
+              onMouseEnter={() => playSound('hover')}
             >
-              <Card className="border-0 shadow-lg glass-dark">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+              <CardContent className="p-10">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="p-3 bg-amber-500/10 rounded-full">
                     <Code className="h-6 w-6 text-amber-400" />
-                    Who Am I?
-                  </h3>
-                  <p className="text-amber-100/70 mb-6 leading-relaxed">
-                    I'm a passionate full-stack developer with over 3 years of experience building
-                    modern web applications. I love creating digital experiences that are not only
-                    functional but also beautiful and intuitive.
-                  </p>
-                  <p className="text-amber-100/70 mb-6 leading-relaxed">
-                    When I'm not coding, you'll find me exploring new technologies, contributing to
-                    open-source projects, or capturing moments through photography. I believe in
-                    continuous learning and staying up-to-date with the latest industry trends.
-                  </p>
-
-                  <div className="flex items-center gap-4 text-sm text-amber-100/60 mb-6">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-amber-400" />
-                      <span>Tangerang, Indonesia</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4 text-amber-400" />
-                      <span>Available for work</span>
-                    </div>
                   </div>
+                  <h3 className="text-2xl font-bold text-amber-50 tracking-tight">The Profile</h3>
+                </div>
+                
+                <p className="text-amber-100/60 mb-6 leading-relaxed font-light">
+                  I am a full-stack architect who views code as a medium for artistic expression. With a focus on 
+                  <strong> performance, fluid kinetics,</strong> and <strong>premium aesthetics</strong>, I build digital 
+                  ecosystems that do more than just function—they resonate.
+                </p>
+                <p className="text-amber-100/60 mb-10 leading-relaxed font-light">
+                  My philosophy is rooted in the "Quiet Space" where technology disappears and only the experience remains. 
+                  Every pixel is intentional, every animation represents a breath.
+                </p>
 
-                  <div className="space-y-3">
-                    <h4 className="font-semibold flex items-center gap-2 text-amber-100">
-                      <Coffee className="h-4 w-4 text-amber-400" />
-                      Interests
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {interests.map((interest) => (
-                        <Badge key={interest} variant="secondary" className="bg-amber-900/30 text-amber-200 border-amber-700/50">
-                          {interest}
-                        </Badge>
-                      ))}
-                    </div>
+                <div className="flex flex-wrap items-center gap-6 text-xs text-amber-100/40 mb-10 uppercase tracking-widest">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-amber-500/50" />
+                    <span>Tangerang, IDN</span>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </motion.div>
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-amber-500/50" />
+                    <span>Available Worldwide</span>
+                  </div>
+                </div>
 
-          {/* Experience */}
-          <motion.div variants={itemVariants} className="space-y-6">
-            <motion.div
-              whileHover={{ y: -5 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Card className="border-0 shadow-lg glass-dark">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                    <Palette className="h-6 w-6 text-amber-400" />
-                    Experience
-                  </h3>
-                  <div className="space-y-6">
-                    {experience.map((exp, index) => (
-                      <div
-                        key={index}
-                        className="relative pl-6 border-l-2 border-amber-400/30 last:border-l-0"
+                <div className="space-y-4">
+                  <h4 className="text-[10px] uppercase tracking-[0.4em] text-amber-500/50 font-bold">Domain Focus</h4>
+                  <div className="flex flex-wrap gap-3">
+                    {interests.map((interest) => (
+                      <Badge 
+                        key={interest} 
+                        variant="secondary" 
+                        className="bg-amber-500/5 text-amber-200/60 border-amber-500/10 rounded-none px-4 py-1.5 hover:bg-amber-500 hover:text-[#0a0a0a] transition-all cursor-default"
                       >
-                        <div className="absolute -left-2 top-0 w-4 h-4 bg-amber-400 rounded-full"></div>
-                        <div className="pb-6">
-                          <h4 className="font-semibold text-lg text-amber-100">{exp.title}</h4>
-                          <p className="text-amber-400 font-medium">{exp.company}</p>
-                          <p className="text-sm text-amber-100/60 mb-2">{exp.period}</p>
-                          <p className="text-amber-100/70 text-sm leading-relaxed">
-                            {exp.description}
-                          </p>
-                        </div>
-                      </div>
+                        {interest}
+                      </Badge>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Experience */}
+          <div className="about-card lg:mt-24">
+            <Card 
+              className="border-0 shadow-2xl glass-dark rounded-none group"
+              onMouseEnter={() => playSound('hover')}
+            >
+              <CardContent className="p-10">
+                <div className="flex items-center gap-4 mb-12">
+                  <div className="p-3 bg-amber-500/10 rounded-full">
+                    <Palette className="h-6 w-6 text-amber-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-amber-50 tracking-tight">Chronicle</h3>
+                </div>
+
+                <div className="space-y-12">
+                  {experience.map((exp, index) => (
+                    <div
+                      key={index}
+                      className="relative pl-8 border-l border-amber-500/20 last:border-l-0"
+                    >
+                      <div className="absolute -left-[5px] top-0 w-2 h-2 bg-amber-500 rounded-full group-hover:scale-150 transition-transform"></div>
+                      <div className="pb-4">
+                        <span className="text-[10px] text-amber-500/40 uppercase tracking-[0.3em] font-mono">{exp.period}</span>
+                        <h4 className="font-bold text-xl text-amber-50 mt-2 tracking-tight">{exp.title}</h4>
+                        <p className="text-amber-400/80 font-medium text-sm italic mb-4">{exp.company}</p>
+                        <p className="text-amber-100/40 text-sm leading-relaxed font-light">
+                          {exp.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
     </section>
   );

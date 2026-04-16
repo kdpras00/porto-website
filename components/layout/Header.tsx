@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSound } from '@/components/providers/SoundProvider';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { playSound, isMuted, toggleMute } = useSound();
 
   useEffect(() => {
     let ticking = false;
@@ -27,6 +29,7 @@ const Header = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
+    playSound('click');
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -59,7 +62,11 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
           >
             <button 
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => {
+                playSound('click');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onMouseEnter={() => playSound('hover')}
               className="group flex items-center gap-1"
             >
               <span className="text-lg sm:text-xl font-poppins font-bold tracking-tighter text-amber-50 group-hover:text-amber-400 transition-all">
@@ -75,6 +82,7 @@ const Header = () => {
               <motion.button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
+                onMouseEnter={() => playSound('hover')}
                 className="text-amber-50/70 hover:text-amber-50 transition-all duration-300 text-sm font-poppins font-medium tracking-wide relative py-1"
                 whileHover={{ y: -2 }}
               >
@@ -89,10 +97,22 @@ const Header = () => {
 
           {/* Right: Actions/Socials */}
           <div className="hidden md:flex items-center ml-auto gap-8 z-20">
+            {/* Sound Toggle */}
+            <button 
+              onClick={toggleMute}
+              onMouseEnter={() => playSound('hover')}
+              className="flex items-center justify-center p-2 rounded-full hover:bg-white/5 transition-all text-amber-50/60 hover:text-amber-400"
+              title={isMuted ? "Unmute" : "Mute"}
+            >
+              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+            </button>
+
             <a 
               href="https://linkedin.com" 
               target="_blank" 
               rel="noopener noreferrer"
+              onMouseEnter={() => playSound('hover')}
+              onClick={() => playSound('click')}
               className="flex items-center gap-1.5 text-xs sm:text-sm font-poppins font-medium text-amber-50/60 hover:text-amber-400 transition-all group"
             >
               Linkedin
@@ -102,6 +122,8 @@ const Header = () => {
               href="/resume.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
+              onMouseEnter={() => playSound('hover')}
+              onClick={() => playSound('click')}
               className="flex items-center gap-1.5 text-xs sm:text-sm font-poppins font-medium text-amber-50/60 hover:text-amber-400 transition-all group"
             >
               Resume

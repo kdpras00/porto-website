@@ -1,57 +1,64 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import gsap from 'gsap';
 
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+0123456789";
 
-const Line = ({ targetText, delay, className, onComplete }: { 
+const ScrambleLine = ({ targetText, delay, className }: { 
     targetText: string, 
     delay: number, 
-    className: string,
-    onComplete?: () => void 
+    className: string
 }) => {
-    const [displayText, setDisplayText] = useState("");
+    const textRef = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
+        if (!textRef.current) return;
+
         let iteration = 0;
-        let interval: any;
+        const duration = 1.5; // seconds
+        const frames = 60;
+        const totalIterations = duration * frames;
+        
+        const scramble = () => {
+            if (!textRef.current) return;
+            
+            textRef.current.innerText = targetText
+                .split("")
+                .map((char, index) => {
+                    if (char === " ") return " ";
+                    if (index < iteration) {
+                        return targetText[index];
+                    }
+                    return characters[Math.floor(Math.random() * characters.length)];
+                })
+                .join("");
 
-        const startScramble = () => {
-            interval = setInterval(() => {
-                setDisplayText(
-                    targetText
-                        .split("")
-                        .map((char, index) => {
-                            if (char === " ") return " ";
-                            if (index < iteration) {
-                                return targetText[index];
-                            }
-                            return characters[Math.floor(Math.random() * characters.length)];
-                        })
-                        .join("")
-                );
+            if (iteration >= targetText.length) {
+                gsap.ticker.remove(scramble);
+            }
 
-                if (iteration >= targetText.length) {
-                    clearInterval(interval);
-                    if (onComplete) onComplete();
-                }
-
-                iteration += 1 / 2.5; // Controls the speed of resolution
-            }, 30);
+            iteration += targetText.length / totalIterations;
         };
 
-        const timeout = setTimeout(startScramble, delay);
+        const timer = setTimeout(() => {
+            gsap.ticker.add(scramble);
+            gsap.fromTo(textRef.current, 
+                { opacity: 0, filter: 'blur(10px)' }, 
+                { opacity: 1, filter: 'blur(0px)', duration: 0.8, ease: 'power2.out' }
+            );
+        }, delay);
 
         return () => {
-            clearInterval(interval);
-            clearTimeout(timeout);
+            clearTimeout(timer);
+            gsap.ticker.remove(scramble);
         };
-    }, [targetText, delay, onComplete]);
+    }, [targetText, delay]);
 
     return (
-        <span className={className}>
-            {displayText}
+        <span ref={textRef} className={className}>
+            &nbsp;
         </span>
     );
 };
@@ -59,6 +66,8 @@ const Line = ({ targetText, delay, className, onComplete }: {
 const Preloader = () => {
     const [progress, setProgress] = useState(0);
     const [dimension, setDimension] = useState({ width: 0, height: 0 });
+    const containerRef = useRef<HTMLDivElement>(null);
+    const counterRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setDimension({ width: window.innerWidth, height: window.innerHeight });
@@ -68,17 +77,25 @@ const Preloader = () => {
     }, []);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setProgress((prev) => {
-                if (prev >= 100) {
-                    clearInterval(interval);
-                    return 100;
-                }
-                const increment = Math.random() * 5 + 1;
-                return Math.min(Math.floor(prev + increment), 100);
-            });
-        }, 40);
-        return () => clearInterval(interval);
+        // Master GSAP Timeline for the Preloader sequence
+        const tl = gsap.timeline({
+            onComplete: () => {
+                // Any logic after preloader finish
+            }
+        });
+
+        // Simulating loading progress with GSAP ease
+        const obj = { value: 0 };
+        tl.to(obj, {
+            value: 100,
+            duration: 2.5,
+            ease: "power2.inOut",
+            onUpdate: () => setProgress(Math.floor(obj.value)),
+        });
+
+        return () => {
+            tl.kill();
+        };
     }, []);
 
     const initialPath = useMemo(() => 
@@ -98,16 +115,17 @@ const Preloader = () => {
         },
         exit: {
             d: targetPath,
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }
+            transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.2 }
         }
     }), [initialPath, targetPath]) as any;
 
     return (
         <motion.div
+            ref={containerRef}
             initial={{ opacity: 1 }}
             exit={{ 
                 opacity: 0,
-                transition: { duration: 0.4, delay: 0.8 } 
+                transition: { duration: 0.4, delay: 1.2 } 
             }}
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-transparent overflow-hidden"
         >
@@ -123,42 +141,44 @@ const Preloader = () => {
                 </svg>
             )}
 
-            {/* Seamless Layout Match with Hero - 1:1 Structural Duplicate */}
+            {/* Seamless Layout Match with Hero */}
             <div className="absolute top-[22%] sm:top-[25%] left-1/2 -translate-x-1/2 w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center z-20">
-                {/* Hero Content with Identical Padding */}
                 <div className="relative w-fit flex flex-col items-center justify-center text-center px-4 py-8 sm:px-16 sm:py-10">
                     <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-amber-50 leading-[1.1] relative z-10">
-                        <Line 
+                        <ScrambleLine 
                             targetText="I BUILD THE QUIET SPACE" 
                             delay={400} 
                             className="block mb-2" 
                         />
-                        <Line 
+                        <ScrambleLine 
                             targetText="WHERE FUNCTION AND BEAUTY MEET." 
-                            delay={1000} 
+                            delay={1200} 
                             className="block text-gradient-animated neon-glow" 
                         />
                     </h1>
                 </div>
             </div>
 
-            {/* Progress Counter - Corner Data */}
-            <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
+            {/* Progress Counter - Digital Data */}
+            <div 
+                ref={counterRef}
                 className="absolute bottom-10 right-10 flex items-center gap-4 z-10 hidden sm:flex"
             >
                 <div className="text-right font-mono">
+                    <motion.div 
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        className="h-px w-24 bg-amber-500/20 mb-2 origin-right"
+                    />
                     <div className="flex items-baseline justify-end tabular-nums">
-                        <span className="text-2xl font-light text-amber-500/40">{progress}</span>
-                        <span className="text-xs text-amber-500/10 ml-1">%</span>
+                        <span className="text-2xl font-light text-amber-500/60 uppercase tracking-widest mr-4 text-[10px]">Processing</span>
+                        <span className="text-4xl font-light text-amber-500/40">{progress.toString().padStart(3, '0')}</span>
                     </div>
                 </div>
-            </motion.div>
+            </div>
 
             {/* Aesthetic Overlays */}
-            <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none z-10" />
+            <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none z-10" />
         </motion.div>
     );
 };

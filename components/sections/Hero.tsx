@@ -1,48 +1,115 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import ParticleBackground from '@/components/ParticleBackground';
+import gsap from 'gsap';
+import ParticleBackground from '../ParticleBackground';
+
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+0123456789";
+
+const HeroScramble = ({ targetText, delay, className }: { 
+    targetText: string, 
+    delay: number, 
+    className: string
+}) => {
+    const textRef = useRef<HTMLSpanElement>(null);
+
+    useEffect(() => {
+        if (!textRef.current) return;
+
+        let iteration = 0;
+        const duration = 1.2;
+        const frames = 60;
+        const totalIterations = duration * frames;
+        
+        const scramble = () => {
+            if (!textRef.current) return;
+            textRef.current.innerText = targetText
+                .split("")
+                .map((char, index) => {
+                    if (char === " ") return " ";
+                    if (index < iteration) return targetText[index];
+                    return characters[Math.floor(Math.random() * characters.length)];
+                })
+                .join("");
+
+            if (iteration >= targetText.length) gsap.ticker.remove(scramble);
+            iteration += targetText.length / totalIterations;
+        };
+
+        const timer = setTimeout(() => {
+            gsap.ticker.add(scramble);
+        }, delay);
+
+        return () => {
+            clearTimeout(timer);
+            gsap.ticker.remove(scramble);
+        };
+    }, [targetText, delay]);
+
+    return <span ref={textRef} className={className}>{targetText}</span>;
+};
 
 const Hero = () => {
-    const [isLoaded, setIsLoaded] = useState(false);
+    const heroRef = useRef<HTMLDivElement>(null);
+    const bgRef = useRef<HTMLDivElement>(null);
+    const sensorRef = useRef<HTMLDivElement>(null);
+    const [isMounted, setIsMounted] = useState(false);
 
-    // Set loaded state after component mounts
     useEffect(() => {
-        const timer = setTimeout(() => setIsLoaded(true), 100);
-        return () => clearTimeout(timer);
-    }, []);
+        setIsMounted(true);
+        if (!bgRef.current || !sensorRef.current) return;
+
+        const tl = gsap.timeline({ delay: 0.5 });
+
+        // Background entrance: subtle zoom out and fade in
+        tl.fromTo(bgRef.current, 
+            { scale: 1.1, opacity: 0 }, 
+            { scale: 1, opacity: 1, duration: 2.5, ease: "power2.out" }
+        );
+
+        // Sensor bar horizontal expansion
+        tl.fromTo(sensorRef.current,
+            { scaleX: 0, opacity: 0 },
+            { scaleX: 1, opacity: 1, duration: 1.2, ease: "power4.inOut" },
+            "-=1.5"
+        );
+
+        // Decorative elements
+        tl.fromTo(".hero-decor",
+            { scaleY: 0, opacity: 0 },
+            { scaleY: 1, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out" },
+            "-=0.5"
+        );
+
+    }, [bgRef, sensorRef]);
 
     return (
         <section
+            ref={heroRef}
             id="hero"
             className="min-h-screen flex items-center justify-center text-white relative overflow-hidden"
         >
-            {/* Particle Background */}
             <ParticleBackground />
 
-            {/* Background Image - Adjusted positioning for the 'Censored' look */}
+            {/* GSAP Managed Background */}
             <div
-                className="absolute inset-0 z-0 transition-opacity duration-1000 ease-out"
+                ref={bgRef}
+                className="absolute inset-0 z-0 bg-no-repeat bg-cover pointer-events-none"
                 style={{
                     backgroundImage: `url('/seriously-face.jpeg')`,
-                    backgroundSize: 'cover',
                     backgroundPosition: '48% 15%',
-                    backgroundRepeat: 'no-repeat',
-                    opacity: isLoaded ? 1 : 0
                 }}
             />
 
-            {/* Enhanced overlay with better gradient */}
+            {/* Cinematic Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/70 to-[#0a0a0a]/30 z-10"></div>
 
             <div className="absolute top-[22%] sm:top-[25%] left-1/2 -translate-x-1/2 w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center z-20">
-                {/* Hero Content with Elite Artistic Sensor Bar */}
-                <motion.div 
-                    initial={{ scaleX: 0, opacity: 0 }}
-                    animate={{ scaleX: 1, opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                    className="relative w-fit flex flex-col items-center justify-center text-center bg-[#0a0a0a] px-4 py-8 sm:px-16 sm:py-10 border-x border-amber-500/10 shadow-[0_0_50px_rgba(0,0,0,0.8)]"
+                {/* Advanced GSAP Sensor Bar */}
+                <div 
+                    ref={sensorRef}
+                    className="relative w-fit flex flex-col items-center justify-center text-center bg-[#0a0a0a]/80 backdrop-blur-md px-4 py-8 sm:px-16 sm:py-10 border-x border-amber-500/10 shadow-[0_0_50px_rgba(0,0,0,0.8)]"
                 >
                     {/* Viewfinder L-Corners */}
                     <div className="absolute inset-0 pointer-events-none">
@@ -52,14 +119,14 @@ const Hero = () => {
                         <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-amber-500/40" />
                     </div>
 
-                    {/* Subtle Scanline Overlay */}
+                    {/* Infinite Scanline Overlay */}
                     <motion.div 
                         animate={{ y: ['0%', '100%', '0%'] }}
                         transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                         className="absolute inset-0 w-full h-[1px] bg-amber-500/5 z-0 pointer-events-none"
                     />
 
-                    {/* Internal Tech Labels - Now Elite Artistic */}
+                    {/* Metadata flickering effects */}
                     <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex items-center justify-between w-[calc(100%-32px)] pointer-events-none overflow-hidden">
                         <div className="flex flex-col gap-1 items-start">
                             <div className="flex items-center gap-1">
@@ -68,66 +135,39 @@ const Hero = () => {
                                     transition={{ duration: 1, repeat: Infinity }}
                                     className="w-1 h-1 bg-red-500 rounded-full" 
                                 />
-                                <span className="text-[6px] sm:text-[8px] font-mono tracking-[0.3em] uppercase text-amber-500/40">Scanning</span>
+                                <span className="text-[6px] sm:text-[8px] font-mono tracking-[0.3em] uppercase text-amber-500/40">Rec_Session</span>
                             </div>
-                            <motion.span 
-                                animate={{ opacity: [0.3, 0.1, 0.3, 0.2, 0.3] }}
-                                transition={{ duration: 3, repeat: Infinity }}
-                                className="text-[6px] sm:text-[8px] font-mono text-amber-500/10"
-                            >
-                                40.7128N
-                            </motion.span>
+                            <span className="text-[6px] sm:text-[8px] font-mono text-amber-500/10 flicker-text">40.7128N</span>
                         </div>
                         <div className="flex flex-col gap-1 items-end">
-                            <span className="text-[6px] sm:text-[8px] font-mono tracking-[0.3em] uppercase text-amber-500/40">Identity_Verified</span>
-                            <motion.span 
-                                animate={{ opacity: [0.3, 0.2, 0.4, 0.1, 0.3] }}
-                                transition={{ duration: 4, repeat: Infinity }}
-                                className="text-[6px] sm:text-[8px] font-mono text-amber-500/10"
-                            >
-                                74.0060W
-                            </motion.span>
+                            <span className="text-[6px] sm:text-[8px] font-mono tracking-[0.3em] uppercase text-amber-500/40">Verified_01</span>
+                            <span className="text-[6px] sm:text-[8px] font-mono text-amber-500/10 flicker-text">74.0060W</span>
                         </div>
                     </div>
 
-                    {/* Enhanced Hero Text */}
-                    <motion.h1
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 1.2 }}
-                        className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-amber-50 leading-[1.1] relative z-10"
-                    >
-                        <motion.span
-                            className="block mb-2"
-                            animate={{ opacity: [0, 1, 0.8, 1] }}
-                            transition={{ duration: 0.2, delay: 1.4 }}
-                        >
-                            I BUILD THE QUIET SPACE
-                        </motion.span>
-                        <motion.span
-                            className="block text-gradient-animated neon-glow"
-                            animate={{ opacity: [0, 1, 0.9, 1] }}
-                            transition={{ duration: 0.2, delay: 1.6 }}
-                        >
-                            WHERE FUNCTION AND BEAUTY MEET.
-                        </motion.span>
-                    </motion.h1>
-                </motion.div>
+                    {/* Scrambled Hero Text for High-End Transition */}
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-amber-50 leading-[1.1] relative z-10">
+                        {isMounted && (
+                            <>
+                                <HeroScramble 
+                                    targetText="I BUILD THE QUIET SPACE" 
+                                    delay={1500} 
+                                    className="block mb-2" 
+                                />
+                                <HeroScramble 
+                                    targetText="WHERE FUNCTION AND BEAUTY MEET." 
+                                    delay={2200} 
+                                    className="block text-gradient-animated neon-glow" 
+                                />
+                            </>
+                        )}
+                    </h1>
+                </div>
             </div>
 
-            {/* Additional decorative elements with animations */}
-            <motion.div
-                initial={{ opacity: 0, scaleY: 0 }}
-                animate={{ opacity: 1, scaleY: 1 }}
-                transition={{ duration: 0.8, delay: 1.2 }}
-                className="absolute top-1/2 left-2 sm:left-4 md:left-8 w-px h-16 sm:h-20 bg-gradient-to-b from-transparent via-amber-400/50 to-transparent z-10"
-            ></motion.div>
-            <motion.div
-                initial={{ opacity: 0, scaleY: 0 }}
-                animate={{ opacity: 1, scaleY: 1 }}
-                transition={{ duration: 0.8, delay: 1.4 }}
-                className="absolute top-1/2 right-2 sm:right-4 md:right-8 w-px h-16 sm:h-20 bg-gradient-to-b from-transparent via-amber-400/50 to-transparent z-10"
-            ></motion.div>
+            {/* Side UI Accents */}
+            <div className="hero-decor absolute top-1/2 left-2 sm:left-4 md:left-8 w-px h-20 bg-gradient-to-b from-transparent via-amber-400/50 to-transparent z-10" />
+            <div className="hero-decor absolute top-1/2 right-2 sm:right-4 md:right-8 w-px h-20 bg-gradient-to-b from-transparent via-amber-400/50 to-transparent z-10" />
         </section>
     );
 };
