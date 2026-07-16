@@ -89,7 +89,7 @@ export default function AboutSection() {
             >
               I am a full-stack architect who views code as a medium for
               artistic expression. With a focus on performance, fluid kinetics,
-              and premium aesthetics, I build digital ecosystems that do more
+              and premium aesthetics, I&nbsp;build digital ecosystems that do more
               than just function—they resonate.
             </p>
             <p
