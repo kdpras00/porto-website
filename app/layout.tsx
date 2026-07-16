@@ -1,34 +1,30 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter, Space_Grotesk, Poppins } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Toaster } from '@/components/ui/toaster';
-import { LazyMotion, domMax } from 'framer-motion';
-import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider';
-import GlobalBackground from '@/components/layout/GlobalBackground';
-import { PreloaderProvider } from '@/components/providers/PreloaderProvider';
-import CustomCursor from '@/components/CustomCursor';
-import { SoundProvider } from '@/components/providers/SoundProvider';
+import "./globals.css";
+import type { Metadata } from "next";
+import { Anton, Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
+
+const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-anton",
+});
 
 const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-space-grotesk',
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
 });
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-});
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-poppins',
+const ibmPlexMono = IBM_Plex_Mono({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-ibm-plex-mono",
 });
 
 export const metadata: Metadata = {
-  title: 'Kurniawan Dwi Prasetyo - Portfolio',
-  description: 'Full Stack Developer & UI/UX Designer',
+  title: "Kurniawan Dwi Prasetyo - Full Stack Developer",
+  description: "High-Contrast Full Stack Developer Portfolio",
+  icons: {
+    icon: "/smile-face.png",
+  },
 };
 
 export default function RootLayout({
@@ -37,27 +33,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} ${poppins.variable} font-sans antialiased overflow-x-hidden`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          <GlobalBackground />
-          <PreloaderProvider>
-            <SoundProvider>
-              <CustomCursor />
-              <LazyMotion features={domMax}>
-                <SmoothScrollProvider>
-                  {children}
-                </SmoothScrollProvider>
-              </LazyMotion>
-            </SoundProvider>
-          </PreloaderProvider>
-          <Toaster />
-        </ThemeProvider>
+    <html lang="en">
+      <body
+        className={`${anton.variable} ${spaceGrotesk.variable} ${ibmPlexMono.variable} antialiased font-sans`}
+      >
+        {children}
       </body>
     </html>
   );

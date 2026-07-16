@@ -1,21 +1,32 @@
-import Header from '@/components/layout/Header';
-import Hero from '@/components/sections/Hero';
-import About from '@/components/sections/About';
-import Projects from '@/components/sections/Projects';
+'use client';
 
-import Contact from '@/components/sections/Contact';
-import Footer from '@/components/sections/Footer';
+import { useState } from 'react';
+import ParticleBackground from '@/components/portfolio/ParticleBackground';
+import Header from '@/components/portfolio/Header';
+import HeroContent from '@/components/portfolio/HeroContent';
+import HeroImage from '@/components/portfolio/HeroImage';
+import FooterMarquee from '@/components/portfolio/FooterMarquee';
+import InfoDrawer from '@/components/portfolio/InfoDrawer';
+import AboutSection from '@/components/portfolio/AboutSection';
+import ProjectsSection from '@/components/portfolio/ProjectsSection';
 
 export default function Home() {
-  return (
-    <main className="min-h-screen bg-background">
-      <Header />
-      <Hero />
-      <About />
-      <Projects />
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-      <Contact />
-      <Footer />
+  return (
+    <main className="relative min-h-screen overflow-x-hidden flex flex-col bg-[#030014] w-full">
+      <div className="relative h-screen w-full flex flex-col">
+        <ParticleBackground />
+        <HeroImage />
+        <HeroContent />
+        <Header onOpenDrawer={() => setIsDrawerOpen(true)} />
+        <FooterMarquee />
+      </div>
+      
+      <AboutSection />
+      <ProjectsSection />
+      
+      <InfoDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
     </main>
   );
 }

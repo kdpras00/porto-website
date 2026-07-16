@@ -10,9 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)'],
-        heading: ['var(--font-space-grotesk)'],
-        poppins: ['var(--font-poppins)'],
+        display: ['var(--font-anton)'],
+        sans: ['var(--font-space-grotesk)'],
+        mono: ['var(--font-ibm-plex-mono)'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
