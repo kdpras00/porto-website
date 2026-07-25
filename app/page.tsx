@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import ParticleBackground from '@/components/portfolio/ParticleBackground';
 import Header from '@/components/portfolio/Header';
 import HeroContent from '@/components/portfolio/HeroContent';
 import HeroImage from '@/components/portfolio/HeroImage';
@@ -14,9 +13,8 @@ export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden flex flex-col bg-[#030014] w-full">
+    <main className="relative min-h-screen overflow-x-hidden flex flex-col bg-black w-full">
       <div className="relative h-screen w-full flex flex-col">
-        <ParticleBackground />
         <HeroImage />
         <HeroContent />
         <Header onOpenDrawer={() => setIsDrawerOpen(true)} />

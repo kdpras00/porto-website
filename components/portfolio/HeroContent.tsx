@@ -79,7 +79,7 @@ export default function HeroContent() {
         <h1
           className="font-display uppercase text-gray-300"
           style={{
-            fontSize: "clamp(40px, 10vw, 130px)",
+            fontSize: "clamp(35px, 8vw, 110px)",
             lineHeight: 0.9,
             textShadow: "0 0 20px rgba(209,213,219,0.3)",
           }}
