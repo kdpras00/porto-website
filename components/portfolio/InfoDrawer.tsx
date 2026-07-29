@@ -13,14 +13,16 @@ const MENU_ITEMS = ["ABOUT", "PROJECTS", "LET'S WORK"];
 
 export default function InfoDrawer({ isOpen, onClose }: InfoDrawerProps) {
   const [view, setView] = useState<"menu" | "contact">("menu");
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "Website Design",
     message: "",
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -40,9 +42,14 @@ export default function InfoDrawer({ isOpen, onClose }: InfoDrawerProps) {
       const data = await res.json();
 
       if (!res.ok) throw new Error(data.message || "Gagal mengirim pesan.");
-      
+
       setStatus("success");
-      setFormData({ name: "", email: "", subject: "Website Design", message: "" });
+      setFormData({
+        name: "",
+        email: "",
+        subject: "Website Design",
+        message: "",
+      });
       setTimeout(() => setStatus("idle"), 5000);
     } catch (error: any) {
       console.error(error);
@@ -163,7 +170,9 @@ export default function InfoDrawer({ isOpen, onClose }: InfoDrawerProps) {
                             type="text"
                             required
                             value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            onChange={(e) =>
+                              setFormData({ ...formData, name: e.target.value })
+                            }
                             className="w-full bg-transparent border-b border-white/20 pb-2 outline-none focus:border-[#D1D5DB] transition-colors text-xl"
                             placeholder="Your Name"
                             disabled={status === "loading"}
@@ -178,7 +187,12 @@ export default function InfoDrawer({ isOpen, onClose }: InfoDrawerProps) {
                             type="email"
                             required
                             value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                email: e.target.value,
+                              })
+                            }
                             className="w-full bg-transparent border-b border-white/20 pb-2 outline-none focus:border-[#D1D5DB] transition-colors text-xl"
                             placeholder="hello@example.com"
                             disabled={status === "loading"}
@@ -189,9 +203,14 @@ export default function InfoDrawer({ isOpen, onClose }: InfoDrawerProps) {
                           <label className="text-xs font-mono text-white/50 uppercase">
                             Project Type
                           </label>
-                          <select 
+                          <select
                             value={formData.subject}
-                            onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                subject: e.target.value,
+                              })
+                            }
                             disabled={status === "loading"}
                             className="w-full bg-transparent border-b border-white/20 pb-2 outline-none focus:border-[#D1D5DB] transition-colors text-xl appearance-none cursor-pointer"
                           >
@@ -216,7 +235,12 @@ export default function InfoDrawer({ isOpen, onClose }: InfoDrawerProps) {
                             rows={4}
                             required
                             value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                message: e.target.value,
+                              })
+                            }
                             className="w-full bg-transparent border-b border-white/20 pb-2 outline-none focus:border-[#D1D5DB] transition-colors text-xl resize-none"
                             placeholder="Tell me about your project..."
                             disabled={status === "loading"}
@@ -224,21 +248,33 @@ export default function InfoDrawer({ isOpen, onClose }: InfoDrawerProps) {
                         </div>
 
                         {status === "error" && (
-                          <div className="text-red-400 font-mono text-xs uppercase">{errorMessage}</div>
+                          <div className="text-red-400 font-mono text-xs uppercase">
+                            {errorMessage}
+                          </div>
                         )}
                         {status === "success" && (
-                          <div className="text-green-400 font-mono text-xs uppercase">Message sent successfully!</div>
+                          <div className="text-green-400 font-mono text-xs uppercase">
+                            Message sent successfully!
+                          </div>
                         )}
 
-                        <button 
-                          disabled={status === "loading" || status === "success"}
+                        <button
+                          disabled={
+                            status === "loading" || status === "success"
+                          }
                           className={`mt-4 font-mono text-sm tracking-widest py-4 px-8 w-full transition-colors uppercase ${
-                            status === "loading" ? "bg-gray-600 text-gray-400 cursor-not-allowed" : 
-                            status === "success" ? "bg-green-500 text-black" :
-                            "bg-[#D1D5DB] text-black hover:bg-white"
+                            status === "loading"
+                              ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+                              : status === "success"
+                                ? "bg-green-500 text-black"
+                                : "bg-[#D1D5DB] text-black hover:bg-white"
                           }`}
                         >
-                          {status === "loading" ? "Sending..." : status === "success" ? "Sent!" : "Submit"}
+                          {status === "loading"
+                            ? "Sending..."
+                            : status === "success"
+                              ? "Sent!"
+                              : "Submit"}
                         </button>
                       </form>
                     </motion.div>

@@ -10,9 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['var(--font-anton)'],
-        sans: ['var(--font-space-grotesk)'],
-        mono: ['var(--font-ibm-plex-mono)'],
+        display: ['var(--font-anton)', 'sans-serif'],
+        sans: ['var(--font-space-grotesk)', 'sans-serif'],
+        mono: ['var(--font-ibm-plex-mono)', 'monospace'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

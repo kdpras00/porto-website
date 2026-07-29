@@ -7,42 +7,42 @@ import { motion, AnimatePresence } from "framer-motion";
 const PROJECTS = [
   {
     title: "SIPKL SMK Mandiri 01 Panongan",
-    image: "/projects/sisteminformasipkl.png",
+    image: "/projects/sisteminformasipkl.webp",
     link: "https://sipkl-smkmandiri01panongan.sch.id",
   },
   {
     title: "Lazismu Banten",
-    image: "/projects/lazismu-banten.png",
+    image: "/projects/lazismu-banten.webp",
     link: "https://lazismu-banten.my.id",
   },
   {
     title: "Friday Store",
-    image: "/projects/fridaystore.png",
+    image: "/projects/fridaystore.webp",
     link: "https://fridaystore.web.id",
   },
   {
     title: "Gymbro",
-    image: "/projects/gymbro.png",
+    image: "/projects/gymbro.webp",
     link: "https://capstone-project-gymbro.vercel.app",
   },
   {
     title: "Calping Coffee",
-    image: "/projects/calpingcoffe.png",
+    image: "/projects/calpingcoffe.webp",
     link: "https://calpingpos.my.id",
   },
   {
     title: "E-Dumas",
-    image: "/projects/e-dumas.png",
+    image: "/projects/e-dumas.webp",
     link: "https://e-dumas.my.id",
   },
   {
     title: "Lingkojan",
-    image: "/projects/lingkojan.png",
+    image: "/projects/lingkojan.webp",
     link: "https://lingkojan.my.id",
   },
   {
     title: "SIBK SMA Latansa Cendekia",
-    image: "/projects/sibk-latansacendekia.png",
+    image: "/projects/sibk-latansacendekia.webp",
     link: "https://sibk-latansacendekia.my.id",
   },
 ];
@@ -124,14 +124,19 @@ export default function ProjectsSection() {
                 className="overflow-hidden"
               >
                 <div className="pb-10 pt-4">
-                  <div className="w-full bg-[#111] relative overflow-hidden group-hover:border group-hover:border-white/10 transition-colors">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full bg-[#111] relative overflow-hidden group-hover:border group-hover:border-white/10 transition-colors cursor-pointer"
+                  >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={project.image}
                       alt={project.title}
                       className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 opacity-80 hover:opacity-100"
                     />
-                  </div>
+                  </a>
                 </div>
               </motion.div>
             </div>

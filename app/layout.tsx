@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   title: "Kurniawan Dwi Prasetyo - Full Stack Developer",
   description: "High-Contrast Full Stack Developer Portfolio",
   icons: {
-    icon: "/smile-face.png",
+    icon: "/smile-face.webp",
   },
 };
 
