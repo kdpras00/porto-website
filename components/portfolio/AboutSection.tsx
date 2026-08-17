@@ -143,7 +143,7 @@ export default function AboutSection() {
                   {skillGroup.items.map((item, idx) => (
                     <span
                       key={idx}
-                      className="font-sans text-sm text-gray-400 px-4 py-2 rounded-full border border-white/10 bg-transparent hover:border-gray-300 hover:text-gray-200 transition-colors cursor-default"
+                      className="font-sans text-sm text-gray-400 px-4 py-2 rounded-full border border-white/10 bg-transparent cursor-default"
                     >
                       {item}
                     </span>
