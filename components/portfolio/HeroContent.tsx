@@ -54,34 +54,46 @@ export default function HeroContent() {
   }, []);
 
   return (
-    <div className="relative z-20 flex-1 flex flex-col items-start justify-center pointer-events-none mt-20 px-4 md:px-10">
-      <div className="flex flex-col items-start text-left">
+    <div className="relative z-20 flex-1 flex flex-col items-start justify-center pointer-events-none mt-20 px-4 md:px-10 unselectable">
+      <div className="hidden md:flex flex-col items-start text-left unselectable">
         <h2
-          className="font-display uppercase tracking-tight"
+          className="font-display uppercase tracking-tight unselectable"
+          unselectable="on"
           style={{
             WebkitTextStroke: '1px white',
             color: 'transparent',
             fontSize: 'clamp(17px, 4vw, 55px)',
             lineHeight: 1,
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none',
+            WebkitTouchCallout: 'none',
           }}
         >
           BUILDING
         </h2>
 
         <h1
-          className="font-display uppercase text-gray-300"
+          className="font-display uppercase text-gray-300 unselectable"
+          unselectable="on"
           style={{
             fontSize: 'clamp(35px, 8vw, 110px)',
             lineHeight: 0.9,
             textShadow: '0 0 20px rgba(209,213,219,0.3)',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none',
+            WebkitTouchCallout: 'none',
           }}
         >
           <ScrambleText key={wordIndex} word={WORDS[wordIndex]} />
         </h1>
       </div>
 
-      <div className="absolute bottom-40 right-8 md:bottom-48 md:right-24 max-w-sm md:max-w-md text-right">
-        <p className="font-sans text-sm md:text-base text-white/70 leading-relaxed">
+      <div className="hidden md:block absolute bottom-40 right-8 md:bottom-48 md:right-24 max-w-sm md:max-w-md text-right unselectable">
+        <p className="font-sans text-sm md:text-base text-white/70 leading-relaxed unselectable" unselectable="on">
           {BIO_TEXT}
         </p>
       </div>

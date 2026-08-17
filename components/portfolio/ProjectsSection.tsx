@@ -45,6 +45,16 @@ const PROJECTS = [
     image: "/projects/sibk-latansacendekia.webp",
     link: "https://sibk-latansacendekia.my.id",
   },
+  {
+    title: "Coding With AI",
+    image: "/projects/codingwithai.webp",
+    link: "https://codingwithai.my.id",
+  },
+  {
+    title: "WA Sender",
+    image: "/projects/wa-sender.webp",
+    link: "#",
+  },
 ];
 
 export default function ProjectsSection() {
@@ -124,19 +134,30 @@ export default function ProjectsSection() {
                 className="overflow-hidden"
               >
                 <div className="pb-10 pt-4">
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full bg-[#111] relative overflow-hidden group-hover:border group-hover:border-white/10 transition-colors cursor-pointer"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 opacity-80 hover:opacity-100"
-                    />
-                  </a>
+                  {project.link !== "#" ? (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full bg-[#111] relative overflow-hidden group-hover:border group-hover:border-white/10 transition-colors cursor-pointer"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 opacity-80 hover:opacity-100"
+                      />
+                    </a>
+                  ) : (
+                    <div className="block w-full bg-[#111] relative overflow-hidden group-hover:border group-hover:border-white/10 transition-colors">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 opacity-80 hover:opacity-100"
+                      />
+                    </div>
+                  )}
                 </div>
               </motion.div>
             </div>

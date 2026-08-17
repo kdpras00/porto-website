@@ -129,9 +129,9 @@ export default function AboutSection() {
 
         {/* Key Skills Section */}
         <div className="mt-32 pt-16 border-t border-dashed border-white/20">
-          <h3 className="font-mono text-sm text-gray-400 uppercase tracking-widest mb-16">
-            SKILLS
-          </h3>
+          <h2 className="font-display text-5xl md:text-8xl tracking-tight uppercase text-white mb-16">
+            Skills
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 gap-x-12">
             {SKILLS.map((skillGroup, index) => (
