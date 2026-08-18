@@ -38,7 +38,7 @@ export default function Header({ onOpenDrawer }: HeaderProps) {
       <div className="flex items-center gap-4">
         {/* Resume Link */}
         <a
-          href="https://drive.google.com/file/d/15kbrYQUGOGRapzcBPdKAVusjHcNxS2lC/view?usp=sharing"
+          href="https://drive.google.com/file/d/1pKH7zUE5EWJkmqWwYP9A2WS3A1pj18LI/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:flex items-center gap-2 font-mono text-xs text-white/70 hover:text-white transition-colors uppercase tracking-widest px-4 py-2 border border-white/20 rounded-full hover:border-white/40"

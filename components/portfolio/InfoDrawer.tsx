@@ -291,7 +291,7 @@ export default function InfoDrawer({ isOpen, onClose }: InfoDrawerProps) {
                   className="mt-16 flex flex-wrap items-center gap-8 border-t border-white/10 pt-8"
                 >
                   <a
-                    href="https://drive.google.com/file/d/15kbrYQUGOGRapzcBPdKAVusjHcNxS2lC/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1pKH7zUE5EWJkmqWwYP9A2WS3A1pj18LI/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-mono text-xs text-white/50 hover:text-white transition-colors flex items-center gap-2 uppercase tracking-widest"
