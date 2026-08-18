@@ -20,8 +20,6 @@ export default function Home() {
         <Header onOpenDrawer={() => setIsDrawerOpen(true)} />
         <FooterMarquee />
       </div>
-
-      <div className="w-full border-t border-dashed border-white/20 relative z-20"></div>
       
       <AboutSection />
       <ProjectsSection />

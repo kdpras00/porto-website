@@ -76,6 +76,7 @@ export default function AboutSection() {
       id="about"
       className="relative z-20 w-full px-8 md:px-24 py-32 mt-[40vh] md:mt-[60vh] text-left"
     >
+      <div className="absolute top-0 left-0 w-full border-t border-dashed border-white/20"></div>
       <div className="max-w-7xl mx-auto">
         <h2 className="font-display text-5xl md:text-8xl tracking-tight uppercase text-white mb-12">
           About
